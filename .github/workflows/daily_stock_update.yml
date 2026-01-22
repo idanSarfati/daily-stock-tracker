@@ -28,14 +28,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Debug NTFY_TOPIC secret presence
-        run: |
-          if [ -z "${{ secrets.NTFY_TOPIC }}" ]; then
-            echo "NTFY_TOPIC secret is NOT defined"
-          else
-            echo "NTFY_TOPIC secret appears to be defined"
-          fi
-
       - name: Run daily script
         run: python daily_script.py
 
