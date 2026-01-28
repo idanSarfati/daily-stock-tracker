@@ -4,8 +4,7 @@ from datetime import datetime, timezone
 import requests
 import yfinance as yf
 
-
-DEFAULT_TICKERS = ["VRT", "COHR", "RRX", "MBLY", "MOD", "GDX", "TER", "FN", "CCJ", "XYL", "HMY", "SFFLY"]
+from tickers_config import get_default_tickers, parse_tickers
 
 
 def build_message_body(tickers: list[str]) -> str:
@@ -73,11 +72,7 @@ def send_push_notification() -> None:
         raise RuntimeError("Missing NTFY_TOPIC environment variable.")
 
     tickers_env = os.environ.get("TICKERS", "")
-    tickers = (
-        [t.strip().upper() for t in tickers_env.replace("\n", ",").split(",") if t.strip()]
-        if tickers_env.strip()
-        else DEFAULT_TICKERS
-    )
+    tickers = parse_tickers(tickers_env) if tickers_env.strip() else get_default_tickers()
 
     message_body = build_message_body(tickers)
     

@@ -2,7 +2,7 @@ name: Daily Stock Update
 
 on:
   schedule:
-    - cron: "0 4 * * *" # 04:00 UTC (06:00 Israel time in winter / UTC+2)
+    - cron: "0 4 * * *" # 04:00 UTC = 06:00 GMT+2 (winter) / 07:00 GMT+3 (summer)
   workflow_dispatch:
 
 jobs:

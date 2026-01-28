@@ -8,8 +8,7 @@ import pandas as pd
 import streamlit as st
 import yfinance as yf
 
-
-DEFAULT_TICKERS = "VRT, COHR, RRX, MBLY, MOD, GDX, TER, FN, CCJ, XYL, HMY, SFFLY"
+from tickers_config import get_default_tickers, parse_tickers
 
 
 @dataclass(frozen=True)
@@ -18,20 +17,6 @@ class PriceResult:
     last_price: float | None
     currency: str | None
     status: str  # "ok" or error message
-
-
-def parse_tickers(raw: str) -> list[str]:
-    # Supports comma-separated and/or newline-separated input.
-    parts = [p.strip().upper() for p in raw.replace("\n", ",").split(",")]
-    parts = [p for p in parts if p]
-    # De-dupe but preserve order
-    seen: set[str] = set()
-    out: list[str] = []
-    for t in parts:
-        if t not in seen:
-            seen.add(t)
-            out.append(t)
-    return out
 
 
 def _price_from_history(ticker: yf.Ticker) -> float | None:
@@ -110,7 +95,7 @@ st.set_page_config(page_title="Stocks Watchlist", layout="centered")
 st.title("Stocks Watchlist")
 st.caption("Paste tickers (comma and/or newline separated) to fetch latest prices via yfinance.")
 
-raw = st.text_area("Stock tickers", value=DEFAULT_TICKERS, height=120)
+raw = st.text_area("Stock tickers", value=", ".join(get_default_tickers()), height=120)
 tickers = parse_tickers(raw)
 
 col1, col2 = st.columns([1, 2])
