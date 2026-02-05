@@ -5,40 +5,65 @@ import requests
 import yfinance as yf
 
 from tickers_config import get_default_tickers, parse_tickers
+from portfolio_config import PORTFOLIO, Holding
+
+
+def _get_last_price(ticker: str) -> float | None:
+    """Fetch last price for a ticker (same logic as the Streamlit app)."""
+    try:
+        stock = yf.Ticker(ticker)
+
+        # Prefer fast_info['last_price'], but fall back to history if needed
+        price: float | None = None
+        try:
+            fast_info = getattr(stock, "fast_info", None)
+            if fast_info and "last_price" in fast_info and fast_info["last_price"] is not None:
+                price = float(fast_info["last_price"])
+        except Exception:
+            # ignore and fall back to history
+            pass
+
+        if price is None:
+            hist = stock.history(period="5d", interval="1d", auto_adjust=False)
+            if not hist.empty:
+                price = float(hist["Close"].dropna().iloc[-1])
+
+        return price
+    except Exception:
+        return None
+
+
+def _format_line_with_pl(ticker: str, price: float) -> str:
+    """
+    Format one line for the notification.
+
+    If the ticker exists in `PORTFOLIO` with an `avg_cost`, we also add
+    the running P/L percentage relative to your cost basis.
+    """
+    holding: Holding | None = PORTFOLIO.get(ticker)
+
+    if holding is not None and holding.avg_cost > 0:
+        pl_pct = (price - holding.avg_cost) / holding.avg_cost * 100.0
+        return f"{ticker}: ${price:.2f}  (P/L {pl_pct:+.2f}%)"
+
+    # No config for this ticker – just show the price.
+    return f"{ticker}: ${price:.2f}"
 
 
 def build_message_body(tickers: list[str]) -> str:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     lines: list[str] = [f"Daily Stock Update ({now})", ""]
 
-    for ticker in tickers:
-        t = ticker.strip().upper()
+    for raw_ticker in tickers:
+        t = raw_ticker.strip().upper()
         if not t:
             continue
 
-        try:
-            stock = yf.Ticker(t)
-
-            # Prefer fast_info['last_price'], but fall back to history if needed
-            price = None
-            try:
-                fast_info = getattr(stock, "fast_info", None)
-                if fast_info and "last_price" in fast_info and fast_info["last_price"] is not None:
-                    price = float(fast_info["last_price"])
-            except Exception:
-                pass
-
-            if price is None:
-                hist = stock.history(period="5d", interval="1d", auto_adjust=False)
-                if not hist.empty:
-                    price = float(hist["Close"].dropna().iloc[-1])
-
-            if price is None:
-                lines.append(f"{t}: Error")
-            else:
-                lines.append(f"{t}: ${price:.2f}")
-        except Exception:
+        price = _get_last_price(t)
+        if price is None:
             lines.append(f"{t}: Error")
+        else:
+            lines.append(_format_line_with_pl(t, price))
 
     return "\n".join(lines)
 
