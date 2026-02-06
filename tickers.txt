@@ -1,4 +1,4 @@
 # Default tickers (comma- and/or newline-separated)
-VRT, COHR, RRX, MBLY, MOD, GDX, TER, FN, CCJ, XYL, HMY, FCX, IEX
+VRT, COHR, RRX, MBLY, MOD, GDX, TER, FN, CCJ, XYL, HMY, FCX, IEX, ALB
 
 
