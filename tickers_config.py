@@ -4,8 +4,7 @@ import os
 from pathlib import Path
 
 
-FALLBACK_TICKERS: list[str] = ["VRT", "COHR", "RRX", "MBLY", "MOD", "GDX", "TER", "FN", "CCJ", "XYL", "HMY", "FCX", "IEX"]
-
+FALLBACK_TICKERS: list[str] = ["VRT", "COHR", "RRX", "MBLY", "MOD", "GDX", "TER", "FN", "CCJ", "XYL", "HMY", "FCX", "IEX", "NVT", "RGTI"]
 
 def parse_tickers(raw: str) -> list[str]:
     """
@@ -38,7 +37,6 @@ def parse_tickers(raw: str) -> list[str]:
             out.append(t)
     return out
 
-
 def load_tickers_from_file(path: str | Path) -> list[str]:
     p = Path(path)
     if not p.exists() or not p.is_file():
@@ -47,7 +45,6 @@ def load_tickers_from_file(path: str | Path) -> list[str]:
         return parse_tickers(p.read_text(encoding="utf-8"))
     except Exception:
         return []
-
 
 def get_default_tickers() -> list[str]:
     """
@@ -59,5 +56,3 @@ def get_default_tickers() -> list[str]:
     tickers_file = os.environ.get("TICKERS_FILE", "tickers.txt")
     file_tickers = load_tickers_from_file(tickers_file)
     return file_tickers if file_tickers else list(FALLBACK_TICKERS)
-
-
