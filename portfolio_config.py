@@ -73,4 +73,3 @@ PORTFOLIO: Dict[str, Holding] = {
     "RGTI": Holding(ticker="RGTI", avg_cost=16.3053),
     "NVT": Holding(ticker="NVT", avg_cost=112.38),
 }
-
