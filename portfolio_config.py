@@ -65,7 +65,7 @@ PORTFOLIO: Dict[str, Holding] = {
     # keep your running P/L% very close to what your broker shows.
     "VRT": Holding(ticker="VRT", avg_cost=175.9784),
     "IEX": Holding(ticker="IEX", avg_cost=194.9573),
-    "FCX": Holding(ticker="FCX", avg_cost=63.4527),
+    "FCX": Holding(ticker="FCX", avg_cost=63.0738),
     "CCJ": Holding(ticker="CCJ", avg_cost=133.9009),
     "WDC": Holding(ticker="WDC", avg_cost=270.9000),
     "MBLY": Holding(ticker="MBLY", avg_cost=11.0904),
