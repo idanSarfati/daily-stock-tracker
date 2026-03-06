@@ -2,7 +2,7 @@ name: Daily Stock Update
 
 on:
   schedule:
-    - cron: "0 4 * * *" # 04:00 UTC = 06:00 GMT+2 (winter) / 07:00 GMT+3 (summer)
+    - cron: "30 21 * * *" # 21:30 UTC = 23:30 Israel (winter) / 00:30 Israel (summer) — just after US market close
   workflow_dispatch:
 
 jobs:
