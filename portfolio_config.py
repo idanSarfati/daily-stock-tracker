@@ -64,7 +64,6 @@ PORTFOLIO: Dict[str, Holding] = {
     # P/L% for each holding. They are approximate but will
     # keep your running P/L% very close to what your broker shows.
     "VRT": Holding(ticker="VRT", avg_cost=175.9784),
-    "IEX": Holding(ticker="IEX", avg_cost=194.9573),
     "CCJ": Holding(ticker="CCJ", avg_cost=133.9009),
     "WDC": Holding(ticker="WDC", avg_cost=270.9000),
     "MBLY": Holding(ticker="MBLY", avg_cost=11.0904),
@@ -72,4 +71,5 @@ PORTFOLIO: Dict[str, Holding] = {
     "RGTI": Holding(ticker="RGTI", avg_cost=16.3053),
     "NVT": Holding(ticker="NVT", avg_cost=112.3152),
     "CRWD": Holding(ticker="CRWD", avg_cost=422.47),
+    "ANET": Holding(ticker="ANET", avg_cost=130.67),
 }

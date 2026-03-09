@@ -2,8 +2,8 @@ name: Daily Stock Update
 
 on:
   schedule:
-    # Mon–Thu: 21:30 UTC = 23:30 Israel — just after US market close
-    - cron: "30 21 * * 1-4"
+    # Mon–Thu: 20:00 UTC ≈ 22:00 Israel (winter) / 23:00 Israel (summer)
+    - cron: "0 20 * * 1-4"
     # Sat: 16:20 UTC = 18:20 Israel (יציאת שבת, winter) — nudge ~10 min later each few weeks as season shifts
     - cron: "20 16 * * 6"
   workflow_dispatch:
