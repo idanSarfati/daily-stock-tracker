@@ -4,7 +4,16 @@ import os
 from pathlib import Path
 
 
-FALLBACK_TICKERS: list[str] = ["VRT", "COHR", "RRX", "MBLY", "MOD", "GDX", "TER", "FN", "CCJ", "XYL", "HMY", "FCX", "IEX", "NVT", "RGTI"]
+FALLBACK_TICKERS: list[str] = [
+    # Current portfolio tickers + watchlist
+    "VRT",
+    "CRWD",
+    "LEU",
+    "BE",
+    "ANET",
+    # Watch-only (no P/L%)
+    "RGTI",
+]
 
 def parse_tickers(raw: str) -> list[str]:
     """

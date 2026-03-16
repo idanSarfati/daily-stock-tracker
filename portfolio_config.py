@@ -59,17 +59,12 @@ class Holding:
 
 
 PORTFOLIO: Dict[str, Holding] = {
-    # These avg_cost values were derived on 2026‑02‑05 from
-    # current market prices (via yfinance) and your reported
-    # P/L% for each holding. They are approximate but will
-    # keep your running P/L% very close to what your broker shows.
-    "VRT": Holding(ticker="VRT", avg_cost=175.9784),
-    "CCJ": Holding(ticker="CCJ", avg_cost=133.9009),
-    "WDC": Holding(ticker="WDC", avg_cost=270.9000),
-    "MBLY": Holding(ticker="MBLY", avg_cost=11.0904),
-    "RRX": Holding(ticker="RRX", avg_cost=158.8815),
-    "RGTI": Holding(ticker="RGTI", avg_cost=16.3053),
-    "NVT": Holding(ticker="NVT", avg_cost=112.3152),
-    "CRWD": Holding(ticker="CRWD", avg_cost=422.47),
-    "ANET": Holding(ticker="ANET", avg_cost=130.67),
+    # Snapshot as of 2026‑03‑15, based on your current broker view.
+    # avg_cost values are your purchase prices per share and `shares`
+    # is the quantity currently held.
+    "VRT": Holding(ticker="VRT", avg_cost=175.99, shares=1.2111),
+    "CRWD": Holding(ticker="CRWD", avg_cost=422.47, shares=0.4165),
+    "LEU": Holding(ticker="LEU", avg_cost=223.20, shares=0.6906),
+    "BE": Holding(ticker="BE", avg_cost=153.40, shares=1.0),
+    "ANET": Holding(ticker="ANET", avg_cost=130.67, shares=1.423),
 }

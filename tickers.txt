@@ -1,4 +1,4 @@
 # Default tickers (comma- and/or newline-separated)
-VRT, MBLY, MOD, FCX, IEX, MU, NVDA, NET, PLTR, ANET, CRWD, PANW, RGTI, NVT
+VRT, MBLY, MOD, FCX, IEX, MU, NVDA, NET, PLTR, ANET, CRWD, PANW, RGTI, NVT, BE, LEU
 
 
